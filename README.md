@@ -1,6 +1,6 @@
-# 06_Java_Arrays_Sergi_Cruceta
 
-# Exercicis d'arrays estàtics: del pseudocodi a Java
+# Exercicis d'arrays estàtics: del pseudocodi a Java (BLOQUE 06)
+Alumno: Sergi Cruceta 
 
 ## Objectiu i coneixements previs
 
