@@ -272,3 +272,27 @@ Resultat:
 ```text
 5.6
 ```
+
+### Pseudocodigo 
+
+INICI
+
+    suma ← 0
+
+    // Lectura dels 5 enters
+    PER i DES DE 0 FINS A 4
+        LLEGIR dades[i]
+    FI_PER
+
+    // Acumulació de la suma
+    PER i DES DE 0 FINS A 4
+        suma ← suma + dades[i]
+    FI_PER
+
+    // Mitjana amb decimals (evita la divisió entera)
+    mitjana ← suma * 1.0 / 5
+
+    ESCRIURE "Suma: ", suma
+    ESCRIURE "Mitjana: ", mitjana
+
+FI
