@@ -1,298 +1,69 @@
-# Exercicis d'arrays estàtics: del pseudocodi a Java
+# Exercici 3. Suma i mitjana
 
-## Objectiu i coneixements previs
+**Objectiu:** utilitzar un acumulador i evitar la divisió entera.
 
-Practicar el disseny d'algorismes amb arrays unidimensionals i traduir-los a Java. Els exercicis introdueixen els arrays a partir dels continguts de les sessions 1 a 5: variables primitives, operadors, entrada i sortida per consola, condicionals i bucles.
+## Anàlisi
 
-En aquest document, **array estàtic** vol dir **array de mida fixa**: les caselles es creen al principi i la quantitat no canvia. No significa que calgui utilitzar la paraula clau `static` per declarar-lo.
+L'entrada són 5 enters que es llegeixen per teclat i es desen en un array de 5 caselles, amb índexs del 0 al 4. La mida és fixa i no es demana a l'usuari. La sortida són dues dades: la suma de tots els valors i la mitjana aritmètica, que ha de conservar els decimals.
 
-Tots els exercicis tenen una mida indicada a l'enunciat; no cal demanar-la a l'usuari. La longitud queda fixada quan es crea l'array.
+Calen dues variables auxiliars. La primera és `suma`, de tipus enter, que fa de acumulador i val 0 abans de començar. La segona és `mitjana`, de tipus decimal (`double`), perquè el resultat d'una mitjana no sempre és un enter. Escollir bé aquests tipus és el centre de l'exercici: si la mitjana es guardés en un enter, es perdrien els decimals.
 
----
+El programa té dues fases. Primer, un recorregut per llegir i desar les cinc dades. Després, un segon recorregut en què l'acumulador va sumant el valor de cada casella. Un cop acabat el bucle, la mitjana es calcula una sola vegada, dividint la suma entre el nombre de caselles.
 
-## Què es pot utilitzar?
+## Pseudocodi
 
-- Variables `int`, `double` i `boolean`, i arrays unidimensionals d'`int`.
-- Assignacions, operadors aritmètics, comparacions i operadors lògics.
-- `Scanner` per llegir nombres.
-- `System.out.print()` i `System.out.println()` per mostrar resultats.
-- `if`, `else`, `for`, `while` i `do-while`.
-- Declaració d'arrays, accés per índex i propietat `length`.
-
----
-
-## Què queda fora d'aquesta pràctica?
-
-No s'han d'utilitzar:
-
-- Matrius.
-- Arrays de text.
-- Manipulació de `String`.
-- `ArrayList` ni altres col·leccions.
-- Mètodes propis.
-- Recursivitat.
-- Fitxers.
-- Excepcions.
-- Streams.
-
-Tampoc es poden utilitzar funcions que resolguin directament operacions sobre arrays, com ara:
-
-```java
-Arrays.sort()
-Arrays.toString()
-Arrays.copyOf()
-System.arraycopy()
-clone()
 ```
-
-Els recorreguts i els càlculs s'han de programar utilitzant bucles.
-
-Cada exercici és un programa independent amb tot l'algorisme dins de `main`.
-
----
-
-## Com s'ha de treballar cada exercici?
-
-### 1. Anàlisi
-
-Identifica:
-
-- Les entrades.
-- Les sortides.
-- La mida dels arrays.
-- Les variables auxiliars necessàries.
-
-### 2. Pseudocodi
-
-Escriu l'algorisme abans de programar:
-
-- Inicialitza comptadors.
-- Inicialitza acumuladors.
-- Defineix els límits dels bucles.
-
-### 3. Traça manual
-
-Aplica l'algorisme a l'exemple proposat i anota almenys tres iteracions indicant:
-
-| Índex | Valor consultat | Variables modificades |
-| ------- | ------------------ | ----------------------- |
-| ... | ... | ... |
-
-### 4. Traducció a Java
-
-Mantén la mateixa lògica del pseudocodi i accedeix a les caselles de l'array mitjançant índexs.
-
-### 5. Comprovació
-
-Executa:
-
-- El cas d'exemple.
-- Les proves addicionals.
-
-Anota:
-
-- Entrada.
-- Resultat esperat.
-- Resultat obtingut.
-
-> Els exemples mostren el resultat que s'ha d'obtenir, però no una possible solució de l'algorisme.
-
----
-
-## Convenis comuns
-
-- Els índexs comencen a **0**.
-- Un array de 5 elements té els índexs **0, 1, 2, 3 i 4**.
-- En Java, `vector.length` indica el nombre de caselles.
-- L'últim índex és `vector.length - 1`.
-
-Totes les caselles s'han d'omplir abans de processar les dades.
-
-No hi ha arrays buits en aquests exercicis.
-
-Llevat que s'indiqui el contrari, les dades dels arrays seran enters compresos entre **-1000 i 1000**, ambdós inclosos.
-
-Es pot suposar que l'usuari introdueix dades vàlides.
-
-Només cal repetir una lectura per validar el rang quan l'enunciat ho demani explícitament (exercicis 8 i 12).
-
-Una **posició** sempre correspon a un índex començant per 0.
-
-Els arrays escrits entre claudàtors representen les dades introduïdes per teclat, en aquell ordre.
-
----
-
-## Notació de pseudocodi
-
-S'utilitzen índexs a partir de 0 per facilitar la traducció a Java.
-
-| Pseudocodi | Equivalent en Java |
-|------------|-------------------|
-| DEFINIR dades COM ARRAY DE 5 ENTERS | `int[] dades = new int[5];` |
-| LLEGIR dades[i] | `dades[i] = lector.nextInt();` |
-| ESCRIURE dades[i] | `System.out.println(dades[i]);` |
-| suma ← 0 | `int suma = 0;` |
-| suma ← suma + dades[i] | `suma = suma + dades[i];` |
-| PER i DES DE 0 FINS A 4 ... FI_PER | `for (int i = 0; i < dades.length; i++) { ... }` |
-| SI condició ... SINÓ ... FI_SI | `if (condició) { ... } else { ... }` |
-| MENTRE condició ... FI_MENTRE | `while (condició) { ... }` |
-
-> En aquesta notació, **FINS A** inclou el límit final.
-
-Per a recorreguts descendents:
-
-```text
-PER i DES DE 4 FINS A 0 PAS -1
-```
-
-Es poden utilitzar les comparacions:
-
-```text
-==
-!=
-<
-<=
->
->=
-```
-
-I els operadors lògics:
-
-```text
-I
-O
-NO
-```
-
----
-
-# Exercici 05:3. Suma i mitjana
-
-## Objectiu
-
-Utilitzar un acumulador i evitar la divisió entera.
-
----
-
-## Enunciat
-
-Llegeix **5 enters** i desa'ls en un array de 5 caselles.
-
-Després, recorre l'array per:
-
-1. Calcular la suma de tots els elements.
-2. Calcular la mitjana aritmètica.
-
-La mitjana ha de conservar els decimals.
-
----
-
-## Exemple
-
-### Entrada
-
-```text
-[2, 4, 5, 7, 10]
-```
-
-### Sortida
-
-```text
-Suma: 28
-Mitjana: 5.6
-```
-
----
-
-## Proves addicionals
-
-### Cas 1
-
-#### Entrada
-
-```text
-[0, 0, 0, 0, 0]
-```
-
-#### Resultat esperat
-
-```text
-Suma: 0
-Mitjana: 0.0
-```
-
----
-
-### Cas 2
-
-#### Entrada
-
-```text
-[-5, -4, -3, -2, -1]
-```
-
-#### Resultat esperat
-
-```text
-Suma: -15
-Mitjana: -3.0
-```
-
----
-
-## Recordatori
-
-En Java, dividir dos enters produeix una **divisió entera**:
-
-```java
-int resultat = 28 / 5;
-System.out.println(resultat);
-```
-
-Sortida:
-
-```text
-5
-```
-
-Per obtenir una divisió decimal:
-
-```java
-double mitjana = suma * 1.0 / dades.length;
-```
-
-o bé:
-
-```java
-double mitjana = (double) suma / dades.length;
-```
-
-Resultat:
-
-```text
-5.6
-```
-
-### Pseudocodigo 
-
 INICI
-
+    dades ← ARRAY DE 5 ENTERS
     suma ← 0
-
-    // Lectura dels 5 enters
+ 
+    escriure("Introdueix 5 enters:")
+ 
     PER i DES DE 0 FINS A 4
-        LLEGIR dades[i]
+        escriure("Enter de la posició ", i, ":")
+        llegir(dades[i])
     FI_PER
-
-    // Acumulació de la suma
+ 
     PER i DES DE 0 FINS A 4
         suma ← suma + dades[i]
     FI_PER
-
-    // Mitjana amb decimals (evita la divisió entera)
+ 
     mitjana ← suma * 1.0 / 5
+ 
+    escriure("Suma:", suma)
+    escriure("Mitjana:", mitjana)
+FINAL
+```
 
-    ESCRIURE "Suma: ", suma
-    ESCRIURE "Mitjana: ", mitjana
+## Explicació
 
-FI
+El programa comença definint l'array de 5 caselles i inicialitzant l'acumulador `suma` a 0. Això és important perquè l'acumulador ha de començar en un valor neutre per a la suma, i ha d'estar fora del bucle: si es posés a zero dins, es perdria el que s'ha acumulat a cada volta. Un primer bucle de la posició 0 a la 4 llegeix les cinc dades. El límit és 4 perquè `FINS A` inclou l'últim valor i un array de 5 caselles té índexs del 0 al 4.
+
+El segon bucle és el recorregut que fa la suma. A cada volta, l'acumulador es renova amb la instrucció `suma ← suma + dades[i]`, que vol dir «el nou valor de la suma és l'antic més el contingut de la casella actual». Quan el bucle acaba, `suma` conté el total de tots els valors.
+
+La mitjana es calcula fora del bucle amb `suma * 1.0 / 5`. El factor `1.0` és el que converteix el càlcul en decimal. Sense ell, dividir dos enters faria una divisió entera, que descarta la part decimal. Per exemple, `28 / 5` donaria `5` en lloc de `5.6`. En multiplicar primer per `1.0`, la suma passa a ser decimal i la divisió posterior també ho és. En Java, el nombre de caselles es pot escriure com `dades.length`, que dona el mateix resultat que el 5 del pseudocodi.
+
+## Traça manual
+
+Cas d'exemple: `[2, 4, 5, 7, 10]`. Abans del bucle de la suma, `suma = 0`.
+
+| Iteració | Índex i | Valor consultat | Suma abans | Suma després |
+|---|---|---|---|---|
+| 1 | 0 | 2 | 0 | 2 |
+| 2 | 1 | 4 | 2 | 6 |
+| 3 | 2 | 5 | 6 | 11 |
+| 4 | 3 | 7 | 11 | 18 |
+| 5 | 4 | 10 | 18 | 28 |
+
+En acabar el bucle, `suma = 28`. Després es calcula la mitjana: `28 * 1.0 / 5 = 28.0 / 5 = 5.6`. Això coincideix amb l'exemple de l'enunciat. Si s'hagués fet una divisió entera, `28 / 5` hauria donat `5`, i s'haurien perdut els `0.6`.
+
+## Comprovació
+
+| Prova | Entrada | Resultat esperat | Resultat obtingut |
+|---|---|---|---|
+| Exemple | 2, 4, 5, 7, 10 | Suma 28, mitjana 5.6 | Suma 28, mitjana 5.6 |
+| Cinc zeros | 0, 0, 0, 0, 0 | Suma 0, mitjana 0 | Suma 0, mitjana 0.0 |
+| Tots negatius | -5, -4, -3, -2, -1 | Suma -15, mitjana -3.0 | Suma -15, mitjana -3.0 |
+
+En la prova dels cinc zeros, Java mostra la mitjana com `0.0` perquè és un nombre decimal, que és el mateix valor que `0` de l'enunciat. La prova dels negatius comprova que l'acumulador funciona igual amb valors negatius: les sumes parcials van baixant fins a `-15`, i dividir-lo entre 5 dona exactament `-3.0`.
+ 
